@@ -1,6 +1,9 @@
 {
   "oled_ssd1327.initDisplay|block": "initialisiere OLED",
   "oled_ssd1327.clearDisplay|block": "lösche OLED",
+  "oled_ssd1327.setDisplay|block": "setze Modus",
+  "oled_ssd1327.writeText|block": "schreibe Text",
+  "oled_ssd1327.writeNumber|block": "schreibe Zahl",
   "oled_ssd1327|block": "Grove OLED",
   "{id:category}Oled_ssd1327": "Oled_ssd1327"
 }

@@ -229,7 +229,7 @@ namespace oled_ssd1327 {
     /**
      * Clears the display.
      */
-    //% weight=209
+    //% weight=208
     //% blockId=oled_ssd1327_textrecord block="clear OLED display"
     //% parts="oled_ssd1327"
     export function clearDisplay() {
@@ -249,7 +249,9 @@ namespace oled_ssd1327 {
     //% row.min=0 row.max=11
     //% col.min=0 col.max=11
     //% hue.min=0 hue.max=15
-    //% block
+    //% weight=207
+    //% blockId=oled_ssd1327_textrecord block="write Text"
+    //% parts="oled_ssd1327"
     export function writeText(text: string, row: number, col: number, hue: number) {
         setCursor(row, col)
         for (let p = 0; p <= text.length - 1; p++) {
@@ -268,7 +270,9 @@ namespace oled_ssd1327 {
     //% row.min=0 row.max=11
     //% col.min=0 col.max=11
     //% hue.min=0 hue.max=15
-    //% block
+     //% weight=206
+    //% blockId=oled_ssd1327_textrecord block="write number"
+    //% parts="oled_ssd1327"
     export function writeNumber(theNumber: number, width: number, row: number, col: number, hue: number) {
         let r: number = 0
         let numberLength = theNumber.toString().length
@@ -289,7 +293,7 @@ namespace oled_ssd1327 {
      * Sets the display in normal or inverted mode.
      * @param mode mode of the display, eg = Normal
      */
-    //% weight=209
+    //% weight=205
     //% blockId=oled_ssd1327_textrecord block="set OLED mode"
     //% parts="oled_ssd1327"
     export function setDisplay(mode: Mode) {
