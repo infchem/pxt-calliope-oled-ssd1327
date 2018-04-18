@@ -1,0 +1,19 @@
+{
+    "name": "pxt-calliope-oled-ssd1327",
+    "version": "0.0.1",
+    "description": "Grove OLED Display 1.12\"",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "oled-ssd1327.ts",
+        "_locales/de/pxt-calliope-oled-ssd1327-jsdoc-strings.json",
+        "_locales/de/pxt-calliope-oled-ssd1327-strings.json"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/calliope-mini/pxt-calliope-oled-ssd1327.git"
+    },
+    "public": false
+}

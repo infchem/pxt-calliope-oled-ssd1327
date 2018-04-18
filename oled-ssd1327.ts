@@ -7,8 +7,10 @@ enum Mode {
     //% block="inverted"
     Inverted
 }
+
 //% weight=100 color=#0fbc11 icon="\uf108" block="OLED (greyscale)"
-namespace custom {
+//% parts="oled_ssd1327"
+namespace oled_ssd1327 {
     let i2cAdress: int8 = 0x3c;
     let basicFont: int8[] = [
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // " "
@@ -122,7 +124,9 @@ namespace custom {
     /**
      * Initialises the display.
      */
-    //% block
+    //% weight=209
+    //% blockId=oled_ssd1327_textrecord block="initialize OLED"
+    //% parts="oled_ssd1327"
     export function initDisplay() {
         music.playTone(3000, 500)
         let sequence1: int8[] = [
@@ -225,7 +229,9 @@ namespace custom {
     /**
      * Clears the display.
      */
-    //% block
+    //% weight=209
+    //% blockId=oled_ssd1327_textrecord block="clear OLED display"
+    //% parts="oled_ssd1327"
     export function clearDisplay() {
         for (let j = 0; j < 48; j++) {
             for (let i = 0; i < 96; i++) {
@@ -283,7 +289,9 @@ namespace custom {
      * Sets the display in normal or inverted mode.
      * @param mode mode of the display, eg = Normal
      */
-    //% block
+    //% weight=209
+    //% blockId=oled_ssd1327_textrecord block="set OLED mode"
+    //% parts="oled_ssd1327"
     export function setDisplay(mode: Mode) {
         if (mode == Mode.Normal) {
             pins.i2cWriteNumber(i2cAdress, 0x80a4, NumberFormat.UInt16BE)
