@@ -1,4 +1,9 @@
 {
-  "grove_pn532": "Functions for the Seeedstudio Grove NFC.\r\nWIP: Reads NDEF text records <=11 chars from ISO14443-3A / Mifare\r\n* @author Mirek Hancl",
-  "grove_pn532.readNDEFText": "Read NDEF text record <10 bytes from Mifare-Tag."
+    "oled_ssd1327.initDisplay|block": "initialisiere OLED",
+  "oled_ssd1327.clearDisplay|block": "lösche OLED",
+  "oled_ssd1327.setDisplay|block": "setze Modus",
+  "oled_ssd1327.writeText|block": "schreibe Text",
+  "oled_ssd1327.writeNumber|block": "schreibe Zahl",
+  "oled_ssd1327|block": "Grove OLED",
+  "{id:category}Oled_ssd1327": "Oled_ssd1327"
 }
