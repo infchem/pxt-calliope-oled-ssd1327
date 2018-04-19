@@ -171,7 +171,7 @@ namespace oled_ssd1327 {
     //% col.min=0 col.max=11
     //% hue.min=0 hue.max=15
     //% weight=207
-    //% blockId=oled_ssd1327_text block="write Text"
+    //% blockId=oled_ssd1327_text block="write Text|number %row|number %col|number %hue"
     //% parts="oled_ssd1327"
     export function writeText(text: string, row: number, col: number, hue: number) {
         setCursor(row, col)
