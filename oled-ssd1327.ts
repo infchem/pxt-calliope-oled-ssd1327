@@ -125,7 +125,7 @@ namespace oled_ssd1327 {
      * Initialises the display.
      */
     //% weight=209
-    //% blockId=oled_ssd1327_textrecord block="initialize OLED"
+    //% blockId=oled_ssd1327_init block="initialize OLED"
     //% parts="oled_ssd1327"
     export function initDisplay() {
         music.playTone(3000, 500)
@@ -146,7 +146,86 @@ namespace oled_ssd1327 {
             pins.i2cWriteNumber(i2cAdress, 0x8000 + sequence2[i], NumberFormat.UInt16BE)
         }
     }
-    function setCursor(row: number, col: number) {
+    
+    /**
+     * Clears the display.
+     */
+    //% weight=208
+    //% blockId=oled_ssd1327_clear block="clear OLED display"
+    //% parts="oled_ssd1327"
+    export function clearDisplay() {
+        for (let j = 0; j < 48; j++) {
+            for (let i = 0; i < 96; i++) {
+                pins.i2cWriteNumber(i2cAdress, 0x4000, NumberFormat.UInt16BE)
+            }
+        }
+    }
+    /**
+     * Writes the text at row and column with the given hue.
+     * @param text text to be written, eg = "Hello World"
+     * @param row [0-11] row, eg = 5
+     * @param col [0-11] column, eg = 1
+     * @param hue [0-15] hue, eg = 10
+     */
+    //% row.min=0 row.max=11
+    //% col.min=0 col.max=11
+    //% hue.min=0 hue.max=15
+    //% weight=207
+    //% blockId=oled_ssd1327_text block="write Text"
+    //% parts="oled_ssd1327"
+    export function writeText(text: string, row: number, col: number, hue: number) {
+        setCursor(row, col)
+        for (let p = 0; p <= text.length - 1; p++) {
+            writeChar(text.substr(p, 1), hue)
+        }
+    }
+    /**
+     * Writes the number with the assumed width at row and column with the given hue.
+     * @param theNumber number to be written, eg=-123
+     * @param width[0-11] assumed width of the number, eg=4
+     * @param row[0-11] row, eg=0
+     * @param col[0-11] column, eg=0
+     * @param hue[0-15] hue, eg=10
+     */
+    //% width.min=0 width.max=11
+    //% row.min=0 row.max=11
+    //% col.min=0 col.max=11
+    //% hue.min=0 hue.max=15
+     //% weight=206
+    //% blockId=oled_ssd1327_number	block="write number"
+    //% parts="oled_ssd1327"
+    export function writeNumber(theNumber: number, width: number, row: number, col: number, hue: number) {
+        let r: number = 0
+        let numberLength = theNumber.toString().length
+        if (numberLength < width) {
+            for (r = 0; r < (width - numberLength); r++) {
+                writeChar(" ", hue)
+            }
+            writeText(theNumber.toString(), row, col, hue)
+        } else if (numberLength > width) {
+            for (r = 0; r < width; r++) {
+                writeChar("*", hue)
+            }
+        } else {
+            writeText(theNumber.toString(), row, col, hue)
+        }
+    }
+    /**
+     * Sets the display in normal or inverted mode.
+     * @param mode mode of the display, eg = Normal
+     */
+    //% weight=205
+    //% blockId=oled_ssd1327_mode block="set OLED mode"
+    //% parts="oled_ssd1327"
+    export function setDisplay(mode: Mode) {
+        if (mode == Mode.Normal) {
+            pins.i2cWriteNumber(i2cAdress, 0x80a4, NumberFormat.UInt16BE)
+        } else {
+            pins.i2cWriteNumber(i2cAdress, 0x80a7, NumberFormat.UInt16BE)
+        }
+    }
+	
+	function setCursor(row: number, col: number) {
         pins.i2cWriteNumber(i2cAdress, 0x8015, NumberFormat.UInt16BE)
         pins.i2cWriteNumber(i2cAdress, 0x8008 + (col * 4), NumberFormat.UInt16BE)
         pins.i2cWriteNumber(i2cAdress, 0x8037, NumberFormat.UInt16BE)
@@ -224,83 +303,6 @@ namespace oled_ssd1327 {
                 charColumn1 = charColumn1 / 2
                 charColumn2 = charColumn2 / 2
             }
-        }
-    }
-    /**
-     * Clears the display.
-     */
-    //% weight=208
-    //% blockId=oled_ssd1327_textrecord block="clear OLED display"
-    //% parts="oled_ssd1327"
-    export function clearDisplay() {
-        for (let j = 0; j < 48; j++) {
-            for (let i = 0; i < 96; i++) {
-                pins.i2cWriteNumber(i2cAdress, 0x4000, NumberFormat.UInt16BE)
-            }
-        }
-    }
-    /**
-     * Writes the text at row and column with the given hue.
-     * @param text text to be written, eg = "Hello World"
-     * @param row [0-11] row, eg = 5
-     * @param col [0-11] column, eg = 1
-     * @param hue [0-15] hue, eg = 10
-     */
-    //% row.min=0 row.max=11
-    //% col.min=0 col.max=11
-    //% hue.min=0 hue.max=15
-    //% weight=207
-    //% blockId=oled_ssd1327_textrecord block="write Text"
-    //% parts="oled_ssd1327"
-    export function writeText(text: string, row: number, col: number, hue: number) {
-        setCursor(row, col)
-        for (let p = 0; p <= text.length - 1; p++) {
-            writeChar(text.substr(p, 1), hue)
-        }
-    }
-    /**
-     * Writes the number with the assumed width at row and column with the given hue.
-     * @param theNumber number to be written, eg=-123
-     * @param width[0-11] assumed width of the number, eg=4
-     * @param row[0-11] row, eg=0
-     * @param col[0-11] column, eg=0
-     * @param hue[0-15] hue, eg=10
-     */
-    //% width.min=0 width.max=11
-    //% row.min=0 row.max=11
-    //% col.min=0 col.max=11
-    //% hue.min=0 hue.max=15
-     //% weight=206
-    //% blockId=oled_ssd1327_textrecord block="write number"
-    //% parts="oled_ssd1327"
-    export function writeNumber(theNumber: number, width: number, row: number, col: number, hue: number) {
-        let r: number = 0
-        let numberLength = theNumber.toString().length
-        if (numberLength < width) {
-            for (r = 0; r < (width - numberLength); r++) {
-                writeChar(" ", hue)
-            }
-            writeText(theNumber.toString(), row, col, hue)
-        } else if (numberLength > width) {
-            for (r = 0; r < width; r++) {
-                writeChar("*", hue)
-            }
-        } else {
-            writeText(theNumber.toString(), row, col, hue)
-        }
-    }
-    /**
-     * Sets the display in normal or inverted mode.
-     * @param mode mode of the display, eg = Normal
-     */
-    //% weight=205
-    //% blockId=oled_ssd1327_textrecord block="set OLED mode"
-    //% parts="oled_ssd1327"
-    export function setDisplay(mode: Mode) {
-        if (mode == Mode.Normal) {
-            pins.i2cWriteNumber(i2cAdress, 0x80a4, NumberFormat.UInt16BE)
-        } else {
-            pins.i2cWriteNumber(i2cAdress, 0x80a7, NumberFormat.UInt16BE)
         }
     }
 }
