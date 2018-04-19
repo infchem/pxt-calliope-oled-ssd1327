@@ -214,6 +214,7 @@ namespace oled_ssd1327 {
      */
     //% weight=205
     //% blockId=oled_ssd1327_mode block="set OLED mode to %mode"
+	//% blockExternalInputs=1
     //% parts="oled_ssd1327"
     export function setDisplay(mode: Mode) {
         if (mode == Mode.normal) {
