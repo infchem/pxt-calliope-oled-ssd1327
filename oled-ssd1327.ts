@@ -2,7 +2,9 @@
  * Functions for the greyscale oled display from Seeed Studio (the square one)
  */
 enum Mode {
+	//% blockId="oled_ssd1327_mode_normal" block="normal"
     normal,
+	//% blockId="oled_ssd1327_mode_inverted" block="inverted"
     inverted
 }
 
