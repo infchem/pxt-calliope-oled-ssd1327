@@ -171,7 +171,7 @@ namespace oled_ssd1327 {
     //% col.min=0 col.max=11
     //% hue.min=0 hue.max=15
     //% weight=207
-    //% blockId=oled_ssd1327_text block="write Text|number %row|number %col|number %hue"
+    //% blockId=oled_ssd1327_text block="write text|text %text|row %row|column %col|hue %hue"
     //% parts="oled_ssd1327"
     export function writeText(text: string, row: number, col: number, hue: number) {
         setCursor(row, col)
@@ -192,7 +192,7 @@ namespace oled_ssd1327 {
     //% col.min=0 col.max=11
     //% hue.min=0 hue.max=15
      //% weight=206
-    //% blockId=oled_ssd1327_number	block="write number"
+    //% blockId=oled_ssd1327_number	block="write number|number %theNumber|width %width|row %row|column %col|hue %hue"
     //% parts="oled_ssd1327"
     export function writeNumber(theNumber: number, width: number, row: number, col: number, hue: number) {
         let r: number = 0
