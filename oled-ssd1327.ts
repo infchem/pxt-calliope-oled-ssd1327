@@ -2,10 +2,8 @@
  * Functions for the greyscale oled display from Seeed Studio (the square one)
  */
 enum Mode {
-    //% block="normal"
-    Normal,
-    //% block="inverted"
-    Inverted
+    normal,
+    inverted
 }
 
 //% weight=100 color=#0fbc11 icon="\uf108" block="OLED (greyscale)"
@@ -171,7 +169,7 @@ namespace oled_ssd1327 {
     //% col.min=0 col.max=11
     //% hue.min=0 hue.max=15
     //% weight=207
-    //% blockId=oled_ssd1327_text block="write text|text %text|row %row|column %col|hue %hue"
+    //% blockId=oled_ssd1327_text block="write text %text|row %row|column %col|hue %hue"
     //% parts="oled_ssd1327"
     export function writeText(text: string, row: number, col: number, hue: number) {
         setCursor(row, col)
@@ -192,7 +190,7 @@ namespace oled_ssd1327 {
     //% col.min=0 col.max=11
     //% hue.min=0 hue.max=15
      //% weight=206
-    //% blockId=oled_ssd1327_number	block="write number|number %theNumber|width %width|row %row|column %col|hue %hue"
+    //% blockId=oled_ssd1327_number	block="write number %theNumber|width %width|row %row|column %col|hue %hue"
     //% parts="oled_ssd1327"
     export function writeNumber(theNumber: number, width: number, row: number, col: number, hue: number) {
         let r: number = 0
@@ -215,10 +213,10 @@ namespace oled_ssd1327 {
      * @param mode mode of the display, eg = Normal
      */
     //% weight=205
-    //% blockId=oled_ssd1327_mode block="set OLED mode"
+    //% blockId=oled_ssd1327_mode block="set OLED mode to %mode"
     //% parts="oled_ssd1327"
     export function setDisplay(mode: Mode) {
-        if (mode == Mode.Normal) {
+        if (mode == Mode.normal) {
             pins.i2cWriteNumber(i2cAdress, 0x80a4, NumberFormat.UInt16BE)
         } else {
             pins.i2cWriteNumber(i2cAdress, 0x80a7, NumberFormat.UInt16BE)
